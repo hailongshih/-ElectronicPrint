@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="#{view.index.title}">Welcome!</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" media="screen" th:href="@{resources/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" media="screen" th:href="@{resources/css/core.css}" />
+    <script th:src="@{resources/js/jquery.min.js}"></script>
+    <script th:src="@{resources/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div th:replace="fragments/header :: header">&nbsp;</div>
+<div class="container">
+    <div th:if="${not #lists.isEmpty(visaStickers)}">
+        <h2>Visa Sticker List</h2>
+        <table class="table table-striped">
+            <tr>
+                <th>Id</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Start Date Of Stay</th>
+                <th>Passport Number</th>
+                <th>Review</th>
+                <th>Delete</th>
+                <th>Print</th>
+            </tr>
+            <tr th:each="visaSticker : ${visaStickers}">
+                <td th:text="${visaSticker.id}">Id</td>
+                <td th:text="${visaSticker.firstname}">First Name</td>
+                <td th:text="${visaSticker.lastname}">Last Name</td>
+                <td th:text="${#dates.format(visaSticker.startdateofstay, 'dd/MM/yyyy')}">Start Date Of Stay</td>
+                <td th:text="${visaSticker.passportnumber}">Passport Number</td>
+                <td><a th:href="${'/visaStickers/edit/' + visaSticker.id}" class="btn btn-default">Review</a></td>
+                <td><a th:href="${'/visaStickers/delete/' + visaSticker.id}" class="btn btn-danger">Delete</a></td>
+                <td><a th:href="${'/visaStickers/printdoc/' + visaSticker.id}" class="btn btn-danger">Print</a></td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer">&copy; 2017 The Static Templates</div>
+</body>
+</html>

@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+
+    <title th:text="#{view.index.title}">Welcome!</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content=""/>
+    <meta name="author" content="" />
+    <link rel="icon" href="../../favicon.ico" />
+    <link th:href="@{/Bootstrap/datetimepicker/bootstrap-datetimepicker.css}" rel="stylesheet" />
+    <link th:href="@{/Bootstrap/bootstrap-select/bootstrap-select.min.css}" rel="stylesheet" />
+    <link th:href="@{/Bootstrap/bootstrap-validator/bootstrapValidator.css}" rel="stylesheet" />
+    <script th:src="@{/resources/js/jquery.min.js}"></script>
+    <script th:src="@{/resources/js/bootstrap.min.js}"></script>
+    <script th:src="@{/Bootstrap/datetimepicker/bootstrap-datetimepicker.js}"></script>
+    <script th:src="@{/Bootstrap/bootstrap-select/bootstrap-select.min.js}"></script>
+
+    <title>Visa Application</title>
+
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/Bootstrap/4.0.0-alpha.6/bootstrap.min.css}" rel="stylesheet" media="screen" />
+    <link th:href="@{/resources/css/bootstrap.min.css}" rel="stylesheet" media="screen" />
+
+    <!-- Custom styles for this template -->
+    <link th:href="@{/resources/css/album.css}" rel="stylesheet" media="screen" />
+    <link th:href="@{/resources/css/general.css}" rel="stylesheet" media="screen"/>
+    <style type="text/css">
+        .nav-item{ font-size:12px}
+        nav.col-md-3{ padding-top:200px}
+        img{width:100px; height:100px}
+        .card-text{color:#777};
+        th{color:#FFF;};
+        .col-md-2{margin:15px 0px;font-weight:normal;float:left}
+        .action{
+            text-align:center;
+            padding-top:30px;
+            float: right;
+            width: 70px;
+            margin-top: -220px;
+            margin-right:40px;
+        }
+        h3{text-align:center};
+        * {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+        .form-group{
+            height:55px;
+            margin-bottom: 5px;
+        }
+        .row-group{
+            height:40px;
+        }
+        label,span{
+            font-weight:normal; font-size:10px;
+        }
+        .form-control,select {
+            height:28px;
+        }
+        .btn{
+            padding:3px 12px;
+            font-size:12px;
+        }
+        label,pre{
+            font-style:italic;
+            color: #6682B1;
+        }
+        .templabel{
+            display: block;
+            text-align: center;
+        }
+        .tooltip-inner {
+            max-width: 100% !important;
+        }
+        pre{
+            width:110%;
+            background-color:#fff;
+            padding:0px;
+            border:0px solid #ccc;
+            font-size:.875rem;
+            text-align:center;
+            font-family:apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+        }
+        .mytitle{
+            font-family:Times New Roman;
+            font-weight: 550;
+            color: #02234C;
+            text-align:center;
+            font-size:18px;
+        }
+        .myhead{
+            padding-right:40px;
+        }
+        .nav-item{ font-size:12px}
+       .lead span{
+            font-weight:300;
+            font-size:2.0rem;
+        }
+        .btn-outline-primary{
+            padding:8px 16px;
+            color: #000;
+            background-image: none;
+            font-size: 12px;
+            font-style: italic;
+            background-color: transparent;
+            border-color: #000;
+            line-height:15px;
+        }
+        .form_datetime,form-control{
+            font-size:11px;
+        }
+        .btn-block{
+            background:#4674C1;
+            margin-bottom:10px;
+        }
+
+        .form-control{
+            padding-right:0px
+        }
+        .adminaction input{
+            position: absolute;
+            float: left;
+        }
+    </style>
+    <script type="text/javascript">
+
+    function save(){
+
+        $("#defaultForm").attr('action',"/form/save");
+        $("#defaultForm").submit();
+
+    }
+    </script>
+</head>
+<body style="overflow:auto">
+<div class="flag" style="margin-left:52px;">
+    <img th:src="@{/resources/images/Flag_of_Senegal.gif}"/>
+    <span>REPUBLIQUE DU SENEGAL</span>
+    <p>UN PEUPLE – UN BUT – UNE FOI</p>
+</div>
+<div class="container-fluid" style="top:-200px;">
+    <div class="row">
+        <nav class="col-md-3">
+            <ul class="nav nav-pills flex-column" style="text-align:left;margin-left:17px;">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#"  style="padding:0.5em 1em">Overview <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item" style="padding-top:3em">
+                    <a class="nav-link" href="#" th:href = "@{/forms/add/1}">Visa<p>(Demande de Visa)</p></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" th:href="@{/forms/add/2}">Consular ID Card<p>(Carte d’Identité Consulaire)</p></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" >Travel Document<p>(Sauf Conduit)</p></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" >Birth Certificate Transcript<p>(Transcription d’Acte de Naissance)</p></a>
+                </li>
+            </ul>
+        </nav>
+        <main class="col-sm-9 offset-sm-3 offset-md-3 pt-3" style="margin-left:0px;">
+            <section class="jumbotron text-center">
+                <div class="container" style="text-align;max-width:550px;">
+                    <h1 class="jumbotron-heading" sec:authorize="hasRole('ROLE_USER')" style="font-weight: 400;font-size: 28px;">Applicant - Visa Application Page</h1>
+                    <h1 class="jumbotron-heading" sec:authorize="!hasAnyRole('ROLE_USER','ROLE_ASSIANT_OFFICER')" style="font-weight: 400;font-size: 28px;">Embassy Primary Officer and Secondary Officer - Visa Application Edit Page</h1>
+                    <div class="nav navbar-nav navbar-right" style="float:right" th:if="${#authorization.expression('isAuthenticated()')}">
+                        <a class="btn btn-outline-primary" onclick="$('#form').submit();" href="/logout" th:href="@{#}">Sign Out</a>
+                        <form style="visibility: hidden" id="form" method="post" action="#" th:action="@{/logout}"></form>
+                    </div>
+                    <p class="lead text-muted" style="font-weight:300; font-size:2.0rem;text-align: center;">Welcome <span sec:authentication="principal.lastName"></span>&nbsp;<span sec:authentication="principal.firstName"></span>&nbsp;!</p>
+                </div>
+            </section>
+
+            <div class="album text-mute">
+                <p class="mytitle myhead">&nbsp;Visa Application (Demande de Visa</p>
+                <pre class="myhead">Fill out completely. Incomplete form will not be processed (Remplir entièrement. Les demandes imcomplètes ne seront pas acceptées)</pre>
+                <form action="#" th:action="${method=='edit'}?@{/forms/submit/1}:@{/forms/add}" th:object="${form}" method="post" id="defaultForm" style="margin-left: 50px;">
+                    <fieldset th:if="${method}=='view'" disabled="disabled">
+                        <legend>Applicant Information (Informations Concernant le Demande</legend>
+                        <div class="form-group">
+                            <div class="rowGroup">
+
+                                <div class="col-md-2" data-toggle="tooltip" title="First Name (Prénom)" data-placement="bottom">
+                                    <input type="text" class="form-control" th:field="*{firstname}"  />
+                                </div>
+                            </div>
+                            <div class="rowGroup">
+
+                                <div class="col-md-2"  data-toggle="tooltip" title="Middle Name(Autre Prénom)" data-placement="bottom">
+                                    <input type="text" class="form-control" th:field="*{middlename}" />
+                                </div>
+                            </div>
+                            <div class="rowGroup">
+
+                                <div class="col-md-2" data-toggle="tooltip" title="Last Name (Nom de Famille)" data-placement="bottom" >
+                                    <input type="text" class="form-control" th:field="*{lastname}" />
+                                </div>
+                            </div>
+                            <div class="rowGroup" >
+
+                                <div class="col-md-2" data-toggle="tooltip" title="Maiden Name (Nom de Jeune Fille)" data-placement="bottom" >
+                                    <input type="text" class="form-control" th:field="*{maindenname}" />
+                                </div>
+                            </div>
+                            <div class="rowGroup">
+                                <div  class="col-md-2" data-toggle="tooltip" title="Family Status (Situation Familiale)" data-placement="bottom" >
+                                    <select th:field="*{maritalstatus}" class="selectpicker form-control" >
+                                        <option th:each="maritalstatus:${maritalstatuss}"
+                                                th:value="${maritalstatus.statusValue}"
+                                                th:text="${maritalstatus}">
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="rowGroup">
+                                <div class="col-md-6" data-toggle="tooltip" title="Address (Adresse)" data-placement="bottom" >
+                                    <input type="text" class="form-control" th:field="*{address}" />
+                                </div>
+                            </div>
+                            <div class="rowGroup">
+                                <div class="col-md-2" data-toggle="tooltip" title="Application Status" data-placement="bottom" >
+                                    <select class="selectpicker form-control" th:disabled="disabled">
+                                        <option th:each="appstatus:${appstatuss}"
+                                                th:value="${appstatus.statusValue}"
+                                                th:text="${appstatus}">
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="rowGroup">
+                                <div class="col-md-2" data-toggle="tooltip" title="Submission Date (Date (mois/jour/année))7" data-placement="bottom" >
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form_datetime" th:readonly="true" th:field="*{applydate}"/>
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="rowGroup">
+                                <div class="col-md-4" data-toggle="tooltip" title="Email Address:" data-placement="bottom" >
+                                    <input type="text" class="form-control" th:field="*{email}" />
+                                </div>
+                            </div>
+                            <div class="rowGroup" >
+                                <div class="col-md-2" data-toggle="tooltip" title="Phone Number (Numéro de Téléphone)" data-placement="bottom" >
+                                    <input type="text" class="form-control" th:field="*{telephone}"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="rowGroup">
+                                <div class="col-md-2" data-toggle="tooltip" title="Nationality (Nationalité)" data-placement="bottom" >
+                                    <select th:field="*{citizenship}" class="selectpicker form-control"  data-live-search="true" data-live-search-placeholder="search">
+                                        <option th:each="citizenship:${citizenships}"
+                                                th:value="${citizenship}"
+                                                th:text="${citizenship}">
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="rowGroup" >
+                                <div class="col-md-3" data-toggle="tooltip" title="Applicant Occupation ((Profession)" data-placement="bottom" >
+                                    <input type="text" class="form-control" th:field="*{occupation}" />
+                                </div>
+                            </div>
+                            <div class="rowGroup">
+                                <div class="col-md-2" data-toggle="tooltip" title="Birth Date (Date de Naissance)" data-placement="bottom" >
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form_datetime" th:field="*{dateofbirth}"/>
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="rowGroup" >
+                                <div class="col-md-3" data-toggle="tooltip" title="Birth Place (Lieu de Naissance)" data-placement="bottom" >
+                                    <input type="text" class="form-control" th:field="*{placeofbirth}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset th:if="${method}!='view'">
+                        <legend>Applicant Information (Informations Concernant le Demande</legend>
+                        <div class="form-group">
+                            <div class="rowGroup">
+
+                                <div class="col-md-2" data-toggle="tooltip" title="First Name (Prénom)" data-placement="bottom">
+                                    <input type="text" class="form-control" th:field="*{firstname}"  />
+                                </div>
+                            </div>
+                            <div class="rowGroup">
+
+                                <div class="col-md-2"  data-toggle="tooltip" title="Middle Name(Autre Prénom)" data-placement="bottom">
+                                    <input type="text" class="form-control" th:field="*{middlename}" />
+                                </div>
+                            </div>
+                            <div class="rowGroup">
+
+                                <div class="col-md-2" data-toggle="tooltip" title="Last Name (Nom de Famille)" data-placement="bottom" >
+                                    <input type="text" class="form-control" th:field="*{lastname}" />
+                                </div>
+                            </div>
+                            <div class="rowGroup" >
+
+                                <div class="col-md-2" data-toggle="tooltip" title="Maiden Name (Nom de Jeune Fille)" data-placement="bottom" >
+                                    <input type="text" class="form-control" th:field="*{maindenname}" />
+                                </div>
+                            </div>
+                            <div class="rowGroup">
+                                <div  class="col-md-2" data-toggle="tooltip" title="Family Status (Situation Familiale)" data-placement="bottom">
+                                    <select th:field="*{maritalstatus}" class="selectpicker form-control" >
+                                        <option th:each="maritalstatus:${maritalstatuss}"
+                                                th:value="${maritalstatus.statusValue}"
+                                                th:text="${maritalstatus}">
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="rowGroup">
+                                <div class="col-md-6" data-toggle="tooltip" title="Address (Adresse)" data-placement="bottom" >
+                                    <input type="text" class="form-control" th:field="*{address}" />
+                                </div>
+                            </div>
+                            <div class="rowGroup">
+                                <div class="col-md-2" data-toggle="tooltip" title="Application Status" data-placement="bottom" >
+                                    <select class="selectpicker form-control" th:disabled="disabled">
+                                        <option th:each="appstatus:${appstatuss}"
+                                                th:value="${appstatus.statusValue}"
+                                                th:text="${appstatus}">
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="rowGroup">
+                                <div class="col-md-2" data-toggle="tooltip" title="Submission Date (Date (mois/jour/année))7" data-placement="bottom" >
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form_datetime" th:readonly="true" th:field="*{applydate}"/>
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="rowGroup">
+                                <div class="col-md-4" data-toggle="tooltip" title="Email Address:" data-placement="bottom" >
+                                    <input type="text" class="form-control" th:field="*{email}" />
+                                </div>
+                            </div>
+                            <div class="rowGroup" >
+                                <div class="col-md-2" data-toggle="tooltip" title="Phone Number (Numéro de Téléphone)" data-placement="bottom" >
+                                    <input type="text" class="form-control" th:field="*{telephone}"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="rowGroup">
+                                <div class="col-md-2" data-toggle="tooltip" title="Nationality (Nationalité)" data-placement="bottom" >
+                                    <select th:field="*{citizenship}" class="selectpicker form-control"  data-live-search="true" data-live-search-placeholder="search">
+                                        <option th:each="citizenship:${citizenships}"
+                                                th:value="${citizenship}"
+                                                th:text="${citizenship}">
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="rowGroup" >
+                                <div class="col-md-3" data-toggle="tooltip" title="Applicant Occupation ((Profession)" data-placement="bottom" >
+                                    <input type="text" class="form-control" th:field="*{occupation}" />
+                                </div>
+                            </div>
+                            <div class="rowGroup">
+                                <div class="col-md-2" data-toggle="tooltip" title="Birth Date (Date de Naissance)" data-placement="bottom" >
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form_datetime" th:field="*{dateofbirth}"/>
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="rowGroup" >
+                                <div class="col-md-3" data-toggle="tooltip" title="Birth Place (Lieu de Naissance)" data-placement="bottom" >
+                                    <input type="text" class="form-control" th:field="*{placeofbirth}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset th:if="${method}=='view'" disabled="disabled">
+                        <legend>Passport Information (Données du Passport du Demandeu</legend>
+                        <div class="form-group">
+                            <div class="rowGroup" >
+                                <div class="col-md-2" data-toggle="tooltip" title="Passport ID (Numéro de Passeport)" data-placement="bottom" >
+                                    <input type="text" class="form-control" th:field="*{passportno}"/>
+                                </div>
+                            </div>
+                            <div class="rowGroup" >
+                                <div class="col-md-4" data-toggle="tooltip" title="By Whom (Délivré Par)" data-placement="bottom" >
+                                    <input type="text" class="form-control" th:field="*{passportissuedby}"/>
+                                </div>
+                            </div>
+                            <div class="rowGroup">
+                                <div class="col-md-2" data-toggle="tooltip" title="Issue Date (Date de Délivrance)" data-placement="bottom" >
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form_datetime" th:field="*{issuedate}"/>
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="rowGroup">
+                                <div class="col-md-2" data-toggle="tooltip" title="Expiration Date (Date d'Expiration)" data-placement="bottom" >
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form_datetime" th:field="*{passportexpirationdate}"/>
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset th:if="${method}!='view'">
+                        <legend>Passport Information (Données du Passport du Demandeu</legend>
+                        <div class="form-group">
+                            <div class="rowGroup" >
+                                <div class="col-md-2" data-toggle="tooltip" title="Passport ID (Numéro de Passeport)" data-placement="bottom" >
+                                    <input type="text" class="form-control" th:field="*{passportno}"/>
+                                </div>
+                            </div>
+                            <div class="rowGroup" >
+                                <div class="col-md-4" data-toggle="tooltip" title="By Whom (Délivré Par)" data-placement="bottom" >
+                                    <input type="text" class="form-control" th:field="*{passportissuedby}"/>
+                                </div>
+                            </div>
+                            <div class="rowGroup">
+                                <div class="col-md-2" data-toggle="tooltip" title="Issue Date (Date de Délivrance)" data-placement="bottom" >
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form_datetime" th:field="*{issuedate}"/>
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="rowGroup">
+                                <div class="col-md-2" data-toggle="tooltip" title="Expiration Date (Date d'Expiration)" data-placement="bottom" >
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form_datetime" th:field="*{passportexpirationdate}"/>
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset th:if="${method}=='view'" disabled="disabled">
+                        <legend>Visa Information (Informations Concernant le Visa Demand</legend>
+                        <div class="form-group">
+                            <div class="rowGroup" >
+                                <div class="col-md-2" data-toggle="tooltip" title="Transit To ((Avec Escale à))" data-placement="bottom" >
+                                    <input type="text" class="form-control" th:field="*{pointoftransit}"/>
+                                </div>
+                            </div>
+                            <div class="rowGroup" >
+                                <div class="col-md-2" data-toggle="tooltip" title="Duration of Stay (Durée du Séjour)" data-placement="bottom" >
+                                    <input type="text" class="form-control" th:field="*{durationofstay}"/>
+                                </div>
+                            </div>
+                            <div class="rowGroup">
+                                <div class="col-md-2" data-toggle="tooltip" title="From (Du)" data-placement="bottom" >
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form_datetime" th:field="*{visaissuedate}"/>
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="rowGroup">
+                                <div class="col-md-2" data-toggle="tooltip" title="To (Au)" data-placement="bottom" >
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form_datetime" th:field="*{visaexpirationdate}"/>
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="rowGroup" >
+                                <div class="col-md-2" data-toggle="tooltip" title="Purpose of Journey (But du Voyage)" data-placement="bottom" >
+                                    <input type="text" class="form-control" th:field="*{purposeofjourney}"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="rowGroup" >
+                                <div class="col-md-3" data-toggle="tooltip" title="(Voyagez-Vous Seul(e)?)" data-placement="bottom" >
+                                    <input type="checkbox"  id="isTravelAlone" th:field="*{istravelalone}"/>
+                                    <label for="isTravelAlone" style="padding-left:25px;">Check if you Travel Alone?</label>
+                                </div>
+                            </div>
+                            <div class="rowGroup" >
+                                <div class="col-md-4" data-toggle="tooltip" title="If not, with whom? (Sinon, Avec Qui?)" data-placement="bottom" >
+                                    <input type="text" class="form-control" th:field="*{tavellingwith}"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="rowGroup">
+                                <div class="col-md-10" data-toggle="tooltip" title="For Business Visa - indicate Partner Name and Address (S'il S'agit d'Un Visa d'Affaires, Indiquer le Nom et l'Adresse de Votre Partenaire)" data-placement="bottom" >
+                                    <input type="text" class="form-control" th:field="*{nameandaddress}"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="rowGroup">
+                                <div class="col-md-10" data-toggle="tooltip" title="For Student Visa, indicate Reference of School or Academic Sponsor (S'il S'agit d'Un Visa d'Etudiant, Indiquer l'Etablissement Scolaire ou Universitaire)" data-placement="bottom" >
+                                    <input type="text" class="form-control" th:field="*{schooloracademicsponsor}"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="rowGroup">
+                                <div class="col-md-10" data-toggle="tooltip" title="Date and Address of your last Visit (When did exit) (Date et Adresse de Votre Dernier Séjour (Date de Sortie du Territoire))" data-placement="bottom" >
+                                    <input type="text" class="form-control" th:field="*{entrydateexitdateaddress}"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="rowGroup" >
+                                <div class="col-md-10" data-toggle="tooltip" title="(Avec ma signature, je m'engage à répondre à une poursuite judiciaire suite à de fausses déclarations dont je serais l'auteur; ce qui pourrait engendrer unrefus de visa dans le futur.)" data-placement="bottom" >
+                                    <input type="checkbox"  id="pledgeresponsibility" th:field="*{signature}"/>
+                                    <label for="pledgeresponsibility">With my Signature, I pledge my responsibility and I would be liable for legal prosecution by the Law in case of false statement, which would prohibit the inssance of</label>
+                                    <label for="pledgeresponsibility" class="templabel">a visa in the future.</label>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" th:field="*{nearestembassy}" />
+                        <input type="hidden" th:field="*{userid}" />
+                        <input type="hidden" th:field="*{type}" />
+                        <input type="hidden" th:field="*{status}" />
+                        <input th:if="${method=='edit'}" type="hidden" th:field="*{id}" />
+                    </fieldset>
+                    <fieldset th:if="${method}!='view'">
+                        <legend>Visa Information (Informations Concernant le Visa Demand</legend>
+                        <div class="form-group">
+                            <div class="rowGroup" >
+                                <div class="col-md-2" data-toggle="tooltip" title="Transit To ((Avec Escale à))" data-placement="bottom" >
+                                    <input type="text" class="form-control" th:field="*{pointoftransit}"/>
+                                </div>
+                            </div>
+                            <div class="rowGroup" >
+                                <div class="col-md-2" data-toggle="tooltip" title="Duration of Stay (Durée du Séjour)" data-placement="bottom" >
+                                    <input type="text" class="form-control" th:field="*{durationofstay}"/>
+                                </div>
+                            </div>
+                            <div class="rowGroup">
+                                <div class="col-md-2" data-toggle="tooltip" title="From (Du)" data-placement="bottom" >
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form_datetime" th:field="*{visaissuedate}"/>
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="rowGroup">
+                                <div class="col-md-2" data-toggle="tooltip" title="To (Au)" data-placement="bottom" >
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form_datetime" th:field="*{visaexpirationdate}"/>
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="rowGroup" >
+                                <div class="col-md-2" data-toggle="tooltip" title="Purpose of Journey (But du Voyage)" data-placement="bottom" >
+                                    <input type="text" class="form-control" th:field="*{purposeofjourney}"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="rowGroup" >
+                                <div class="col-md-3" data-toggle="tooltip" title="(Voyagez-Vous Seul(e)?)" data-placement="bottom" >
+                                    <input type="checkbox"  id="isTravelAlone" th:field="*{istravelalone}"/>
+                                    <label for="isTravelAlone" style="padding-left:25px;">Check if you Travel Alone?</label>
+                                </div>
+                            </div>
+                            <div class="rowGroup" >
+                                <div class="col-md-4" data-toggle="tooltip" title="If not, with whom? (Sinon, Avec Qui?)" data-placement="bottom" >
+                                    <input type="text" class="form-control" th:field="*{tavellingwith}"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="rowGroup">
+                                <div class="col-md-10" data-toggle="tooltip" title="For Business Visa - indicate Partner Name and Address (S'il S'agit d'Un Visa d'Affaires, Indiquer le Nom et l'Adresse de Votre Partenaire)" data-placement="bottom" >
+                                    <input type="text" class="form-control" th:field="*{nameandaddress}"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="rowGroup">
+                                <div class="col-md-10" data-toggle="tooltip" title="For Student Visa, indicate Reference of School or Academic Sponsor (S'il S'agit d'Un Visa d'Etudiant, Indiquer l'Etablissement Scolaire ou Universitaire)" data-placement="bottom" >
+                                    <input type="text" class="form-control" th:field="*{schooloracademicsponsor}"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="rowGroup">
+                                <div class="col-md-10" data-toggle="tooltip" title="Date and Address of your last Visit (When did exit) (Date et Adresse de Votre Dernier Séjour (Date de Sortie du Territoire))" data-placement="bottom" >
+                                    <input type="text" class="form-control" th:field="*{entrydateexitdateaddress}"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="rowGroup" >
+                                <div class="col-md-10" data-toggle="tooltip" title="(Avec ma signature, je m'engage à répondre à une poursuite judiciaire suite à de fausses déclarations dont je serais l'auteur; ce qui pourrait engendrer unrefus de visa dans le futur.)" data-placement="bottom" >
+                                    <input type="checkbox"  id="pledgeresponsibility" th:field="*{signature}"/>
+                                    <label for="pledgeresponsibility">With my Signature, I pledge my responsibility and I would be liable for legal prosecution by the Law in case of false statement, which would prohibit the inssance of</label>
+                                    <label for="pledgeresponsibility" class="templabel">a visa in the future.</label>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" th:field="*{nearestembassy}" />
+                        <input type="hidden" th:field="*{userid}" />
+                        <input type="hidden" th:field="*{type}" />
+                        <input type="hidden" th:field="*{status}" />
+                        <input th:if="${method=='edit'}" type="hidden" th:field="*{id}" />
+                    </fieldset>
+                    <fieldset style="margin-top:15px" sec:authorize="!hasRole('ROLE_USER')">
+                        <legend>Emplacement Reserve A L'Administratio</legend>
+                        <div class="form-group">
+                            <div class="rowGroup" >
+                                <div class="col-md-1" style="padding:0px">
+                                    <input type="text" class="form-control"/>
+                                    <pre>Visa Number<br></br>(Numéro de visa)</pre>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <select class="selectpicker form-control"  data-live-search="true" data-live-search-placeholder="search">
+                                    <option th:each="visaType:${visaTypes}"
+                                            th:value="${visaType}"
+                                            th:text="${visaType}">
+                                    </option>
+                                </select>
+                                <pre>Visa Type<br></br>(Genre de Visa)</pre>
+                            </div>
+                            <div class="rowGroup">
+                                <div class="col-md-2">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form_datetime"/>
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
+                                    </div>
+                                    <pre>Issue Date<br></br>(Date de Délivrance)</pre>
+                                </div>
+                            </div>
+                            <div class="rowGroup">
+                                <div class="col-md-2">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form_datetime"/>
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
+                                    </div>
+                                    <pre>Expiration Date<br></br>(Date d'Expiration)</pre>
+                                </div>
+                            </div>
+                            <div class="rowGroup" style="padding:0px">
+                                <div class="col-md-2" >
+                                    <input type="text" class="form-control"/>
+                                    <pre>Number of Entries<br></br>(Nombre d'Entrées Autorisées)</pre>
+                                </div>
+                            </div>
+                            <div class="rowGroup" style="padding:0px">
+                                <div class="col-md-2" >
+                                    <input type="text" class="form-control"/>
+                                    <pre style="width:140%">Authorized Duration Per Stay<br></br>(Durée Autorisées de chaque séjour)</pre>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="rowGroup">
+                                <div class="col-md-10" data-toggle="tooltip" title="Initial Interview Reference (Eventuellement, référence de la résponse a la consultation préalable)" data-placement="bottom" >
+                                    <input type="text" class="form-control"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="rowGroup">
+                                <div class="col-md-10" data-toggle="tooltip" title="Chief of Station Observations (Avis Du Chef De Poste)" data-placement="bottom" >
+                                    <input type="text" class="form-control"/>
+                                </div>
+                            </div>
+                        </div>
+
+                    </fieldset>
+                    <div class="action" sec:authorize="hasRole('ROLE_USER')">
+                        <input type="button" value="Save" class="btn btn-primary btn-block" onclick="save()"/>
+                        <input type="submit" value="Submit" class="btn btn-primary btn-block"/>
+                        <input type="button" value="Clear" class="btn btn-primary btn-block"/>
+                        <input type="button" value="Cancel" class="btn btn-primary btn-block"/>
+                    </div>
+                    <div class="adminaction" sec:authorize="!hasRole('ROLE_USER')">
+                        <input type="button" value="Save" class="btn btn-primary btn-block" onclick="save()" style="left: 650px; width:70px; margin-top: 5px;"/>
+                        <input type="submit" value="Approve" class="btn btn-primary btn-block" style="left: 740px; width:70px"/>
+                        <input type="button" value="Decline" class="btn btn-primary btn-block" style="left: 830px; width:70px"/>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+</div>
+<footer class="footer" style="bottom:-580px;left:39px;z-index:-1;">
+    <div class="container">
+        <p class="float-right">
+            <a href="#">Back to top</a>
+        </p>
+        <p></p>
+        <img th:src="@{/resources/images/new.logo.eagle.globe.gif}" style="width:33px;"/>
+        <span class="text-muted">Powered by Adage Innovations, Inc.</span>
+    </div>
+</footer>
+<script type="text/javascript">
+    var newDate = new Date();
+    var t       = newDate.toJSON();
+    $('.form_datetime').datetimepicker({
+        format: 'mm/dd/yyyy',
+        language:  'en',
+        weekStart: 0,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0,
+    });
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script th:src="@{/Bootstrap/4.0.0-alpha.6/holder.min.js}"></script>
+<script>
+      $(function () {
+        Holder.addTheme("thumb", { background: "#55595c", foreground: "#eceeef", text: "Thumbnail" });
+      });
+    </script>
+<script th:src="@{/Bootstrap/4.0.0-alpha.6/bootstrap.min.js}"></script>
+<script th:src="@{/Bootstrap/4.0.0-alpha.6/jquery-slim.min.js}"></script>
+<script th:src="@{/Bootstrap/4.0.0-alpha.6/tether.min.js}"></script>
+<script th:src="@{/Bootstrap/4.0.0-alpha.6/util.js}"></script>
+<script th:src="@{/Bootstrap/4.0.0-alpha.6/tooltip.js}"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script th:src="@{/Bootstrap/4.0.0-alpha.6/ie10-viewport-bug-workaround.js}"></script>
+<script th:src="@{/Bootstrap/bootstrap-validator/bootstrapValidator.js}"></script>
+<script type="text/javascript">
+
+    $(function() {
+        $('[data-toggle="tooltip"]').tooltip('show');
+        $('#defaultForm').bootstrapValidator({
+            message: 'This value is not valid',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                firstname: {
+                    message: 'The First Name is not valid',
+                    validators: {
+                        notEmpty: {
+                            message: 'The First Name is required and can\'t be empty'
+                        },
+                        regexp: {
+                            regexp: /^[a-zA-Z0-9_\.]+$/,
+                            message: 'The Frist Name can only consist of alphabetical, number, dot and underscore'
+                        }
+                    }
+                }
+
+            }
+        });
+
+    });
+</script>
+</body>
+</html>

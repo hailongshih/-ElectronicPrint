@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" media="screen" th:href="@{/resources/css/bootstrap.min.css}"/>
+</head>
+<body>
+    <!--/*  Multiple fragments may be defined in one file */-->
+    <div th:fragment="footer" th:align="center">
+        &copy; <span th:text="${#dates.format(new java.util.Date().getTime(), 'yyyy')}">2018</span>
+        <span>Electronic Print</span>
+    </div>
+</body>
+</html>
+

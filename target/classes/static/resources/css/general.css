@@ -1,0 +1,44 @@
+.flag{
+    width: 300px;
+    margin-left: 50px;
+    margin-top: 20px;
+}
+.flag img{
+    width: 200px;
+    height: 133.328px;
+}
+.flag span{
+    font-weight:600;
+    font-size: 24px;
+    margin-top: 15px;
+    display: block;
+    line-height: 26px;
+}
+.flag p{
+    font-size:16px;
+    margin-top: 0px;
+    margin-bottom: 16px;
+    line-height: 24px;
+}
+.lead{
+    text-align:left;
+}
+.footer img{
+    position:relative;
+    bottom:10px;
+    width:30px;
+    height: 49.5px;
+}
+.footer span{
+    color: #636c72!important;
+    font-size:16px;
+}
+body{
+    overflow:hidden;
+    text-align: center;
+}
+.footer{
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+}

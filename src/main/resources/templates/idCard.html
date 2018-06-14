@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="#{view.index.title}">Welcome!</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" media="screen" th:href="@{/resources/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" media="screen" th:href="@{/resources/css/core.css}" />
+    <link th:href="@{/Bootstrap/datetimepicker/bootstrap-datetimepicker.css}" rel="stylesheet" />
+    <link th:href="@{/Bootstrap/bootstrap-select/bootstrap-select.min.css}" rel="stylesheet" />
+    <link th:href="@{/Bootstrap/bootstrap-fileinput/fileinput.min.css}" rel="stylesheet" />
+    <script th:src="@{/resources/js/jquery.min.js}"></script>
+    <script th:src="@{/resources/js/bootstrap.min.js}"></script>
+    <script th:src="@{/Bootstrap/datetimepicker/bootstrap-datetimepicker.js}"></script>
+    <script th:src="@{/Bootstrap/bootstrap-select/bootstrap-select.min.js}"></script>
+    <script th:src="@{/Bootstrap/bootstrap-fileinput/fileinput.min.js}"></script>
+    <script th:src="@{/recaptcha/api.js}"></script>
+    <style type="text/css">
+        body{ line-height:2.0;}
+        .col-md-2{margin-top:10px;font-weight:normal;}
+        .submit{clear:both; text-align:center; padding-top:30px;}
+        h3{text-align:center};
+    </style>
+</head>
+<body>
+<h3>&nbsp;ID Card Form</h3>
+<form action="#" th:action="${method=='edit'}?@{/forms/edit}:@{/forms/add}" th:object="${form}" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <div class="rowGroup">
+            <label class="col-md-2 control-label">First Name: </label>
+            <div class="col-md-2">
+                <input type="text" class="form-control" th:field="*{firstname}"  />
+            </div>
+        </div>
+        <div class="rowGroup">
+            <label class="col-md-2 control-label">Last Name: </label>
+            <div class="col-md-2">
+                <input type="text" class="form-control" th:field="*{lastname}" />
+            </div>
+        </div>
+        <div class="rowGroup">
+            <label class="col-md-2 control-label" >Date Of Birth: </label>
+            <div class="col-md-2">
+                <div class="input-group">
+                    <input type="text" class="form-control form_datetime"  th:field="*{dateofbirth}" />
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="rowGroup">
+            <label class="col-md-2 control-label">Place Of Birth: </label>
+            <div class="col-md-2">
+                <input type="text" class="form-control" th:field="*{placeofbirth}" />
+            </div>
+        </div>
+        <div class="rowGroup">
+            <label class="col-md-2 control-label">Father whole name: </label>
+            <div class="col-md-2">
+                <input type="text" class="form-control" th:field="*{fathername}"  />
+            </div>
+        </div>
+        <div class="rowGroup">
+            <label class="col-md-2 control-label">Mother whole name: </label>
+            <div class="col-md-2">
+                <input type="text" class="form-control" th:field="*{mothername}"  />
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="rowGroup">
+            <label class="col-md-2 control-label">Citizenship: </label>
+            <div class="col-md-2">
+                <select th:field="*{citizenship}" style="width:183px" class="selectpicker form-control"  data-live-search="true" data-live-search-placeholder="search">
+                    <option th:each="citizenship:${citizenships}"
+                            th:value="${citizenship.countryname}"
+                            th:text="${citizenship.countryname}">
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="rowGroup">
+            <label class="col-md-2 control-label">Occupation: </label>
+            <div class="col-md-2">
+                <input type="text" class="form-control" th:field="*{occupation}"  />
+            </div>
+        </div>
+        <div class="rowGroup">
+            <label class="col-md-2 control-label">Address: </label>
+            <div class="col-md-2">
+                <input type="text" class="form-control" th:field="*{address}"  />
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="rowGroup">
+            <label class="col-md-2 control-label">Complexion: </label>
+            <div class="col-md-2">
+                <input type="text" class="form-control" th:field="*{complexion}"  />
+            </div>
+        </div>
+        <div class="rowGroup">
+            <label class="col-md-2 control-label">Height: </label>
+            <div class="col-md-2">
+                <input type="text" class="form-control" th:field="*{height}"  />
+            </div>
+        </div>
+        <div class="rowGroup" >
+            <label class="col-md-2 control-label" >Issue Date: </label>
+            <div class="col-md-2">
+                <div class="input-group">
+                    <input type="text" class="form-control form_datetime" th:field="*{issuedate}" />
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="rowGroup">
+            <label class="col-md-2 control-label">Consular ID Number: </label>
+            <div class="col-md-2">
+                <input type="text" class="form-control" th:field="*{consularid}"  />
+            </div>
+        </div>
+        <div class="rowGroup">
+            <label class="col-md-2 control-label">Timbre: </label>
+            <div class="col-md-2">
+                <input type="text" class="form-control" th:field="*{timbre}" />
+            </div>
+        </div>
+        <div class="rowGroup">
+            <label class="col-md-2 control-label">Photo: </label>
+            <div class="col-md-2" style="font-size:8px">
+                <input type="file" class="file" name="photo1"  id="photo"/>
+            </div>
+        </div>
+    </div>
+    <div class="form-group" th:if="${method=='edit'}">
+        <div class="rowGroup">
+            <img src="/getimage/15" width="200" height="200"/>
+        </div>
+    </div>
+    <input type="hidden" th:field="*{userid}" />
+    <input type="hidden" th:field="*{applydate}"/>
+    <input type="hidden" th:field="*{type}" />
+    <input type="hidden" th:field="*{id}" />
+    <div class="form-group">
+        <div class="rowGroup">
+            <label class="col-md-2 control-label">Signature: </label>
+            <div class="col-md-2">
+                <input type="text" class="form-control" th:field="*{signature}"  />
+            </div>
+        </div>
+    </div>
+    <div class="submit">
+        <input type="submit" value="Submit" />
+        <input type="reset" value="Reset" />
+    </div>
+    <div class="g-recaptcha" data-sitekey="6LfGylgUAAAAABVyP4niY1hwBeE-Xhi42TY0AVgO"></div>
+</form>
+<script type="text/javascript">
+
+    var newDate = new Date();
+    var t       = newDate.toJSON();
+    $('.form_datetime').datetimepicker({
+        format: 'mm/dd/yyyy',
+        language:  'en',
+        weekStart: 0,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0,
+        weekStart: 1,
+        startDate:new Date(t),
+    });
+
+    </script>
+</body>
+</html>

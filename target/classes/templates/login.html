@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Sign In</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link th:href="@{Bootstrap/4.0.0-alpha.6/bootstrap.min.css}" rel="stylesheet" media="screen" />
+    <link th:href="@{resources/css/core.css}" rel="stylesheet" media="screen" />
+    <link th:href="@{resources/css/signin.css}" rel="stylesheet" media="screen" />
+    <link th:href="@{resources/css/general.css}" rel="stylesheet" media="screen"/>
+    <style type="text/css">
+        .page-header{text-align:center;font-weight:400;font-size:24px};
+    </style>
+</head>
+<body>
+<div class="flag">
+    <img th:src="@{resources/images/Flag_of_Senegal.gif}"/>
+    <span>REPUBLIQUE DU SENEGAL</span>
+    <p>UN PEUPLE – UN BUT – UNE FOI</p>
+</div>
+<form class="form-signin" method="post" th:action="@{/login}">
+    <p class="page-header">Login In Page</p>
+    <label for="inputEmail" class="sr-only">Email address</label>
+    <input type="text" name="username" id="inputEmail" class="form-control" placeholder="Email address" />
+    <label for="inputPassword" class="sr-only">Password</label>
+    <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" />
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" id="remember-me" />
+            <label for="remember-me">Remember me</label>
+        </label>
+    </div>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+</form>
+<footer class="footer">
+    <div class="container">
+        <img th:src="@{resources/images/new.logo.eagle.globe.gif}" style="width:33px;"/>
+        <span class="text-muted">Powered by Adage Innovations, Inc.</span>
+    </div>
+</footer>
+</body>
+</html>

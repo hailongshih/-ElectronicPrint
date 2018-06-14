@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <title th:text="#{view.index.title}">Welcome!</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content=""/>
+    <meta name="author" content="" />
+    <link rel="icon" href="../../favicon.ico" />
+
+    <title>Home Page</title>
+
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{Bootstrap/4.0.0-alpha.6/bootstrap.min.css}" rel="stylesheet" media="screen" />
+    <link th:href="@{/resources/css/bootstrap.min.css}" rel="stylesheet" media="screen" />
+
+    <!-- Custom styles for this template -->
+    <link th:href="@{resources/css/album.css}" rel="stylesheet" media="screen" />
+    <link th:href="@{resources/css/general.css}" rel="stylesheet" media="screen"/>
+    <link th:href="@{Bootstrap/bootstarp-table/bootstrap-table.min.css}" rel="stylesheet" media="screen"/>
+    <style type="text/css">
+        .nav-item{ font-size:12px}
+        nav.col-md-3{ padding-top:200px}
+        img{width:100px; height:100px}
+        .card-text{color:#777};
+        th{color:#FFF;};
+        .col-md-2{margin:15px 0px;font-weight:normal;float:left}
+        .submit{clear:both; text-align:center; padding-top:30px;}
+        h3{text-align:center};
+        .form-group{
+            height:55px;
+            margin-bottom: 5px;
+        }
+        .row-group{
+            height:40px;
+        }
+        label{
+            font-weight:normal; font-size:10px;
+        }
+        .form-control,select {
+            height:28px;
+        }
+        .btn{
+            padding:3px 12px;
+        }
+        label,pre{
+            font-style:italic;
+            color: #6682B1;
+        }
+        .templabel{
+            display: block;
+            text-align: center;
+        }
+        .tooltip-inner {
+            max-width: 100% !important;
+        }
+        pre{
+            width:110%;
+            background-color:#fff;
+            padding:0px;
+            border:0px solid #ccc;
+            font-size:.875rem;
+            text-align:center;
+            font-family:apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+        }
+        .mytitle{
+            font-family:Times New Roman;
+            font-weight: 550;
+            color: #02234C;
+            text-align:center;
+            font-size:18px;
+        }
+        .myhead{
+            padding-right:40px;
+        }
+        .nav-item{ font-size:12px}
+       .lead span{
+            font-weight:300;
+            font-size:2.0rem;
+        }
+        .btn-outline-primary{
+            padding:8px 16px;
+            color: #000;
+            background-image: none;
+            font-size: 12px;
+            font-style: italic;
+            background-color: transparent;
+            border-color: #000;
+            line-height:15px;
+        }
+
+    </style>
+</head>
+<body style="overflow:auto">
+<div class="flag" style="margin-left:55px;">
+    <img th:src="@{resources/images/Flag_of_Senegal.gif}"/>
+    <span>REPUBLIQUE DU SENEGAL</span>
+    <p>UN PEUPLE – UN BUT – UNE FOI</p>
+</div>
+<div class="container-fluid" style="top:-200px; left:20px;">
+    <div class="row">
+        <nav class="col-md-3">
+            <ul class="nav nav-pills flex-column" style="text-align:left;margin-right:21px;">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#"  style="padding:0.5em 1em">Overview <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item" style="padding-top:3em" th:if="${type}!=1" sec:authorize="!hasRole('ROLE_ASSIANT_OFFICER')">
+                    <a class="nav-link" href="#" th:href = "@{/forms/add/1}" sec:authorize="hasRole('ROLE_USER')">Visa<p>(Demande de Visa)</p></a>
+                    <a class="nav-link" href="#" th:href = "@{/home?type=1}" sec:authorize="!hasRole('ROLE_USER')">Visa<p>(Demande de Visa)</p></a>
+                </li>
+                <li class="nav-item" th:if="${type}!=2" sec:authorize="!hasRole('ROLE_ASSIANT_OFFICER')">
+                    <a class="nav-link" href="#" th:href="@{/forms/add/2}" sec:authorize="hasRole('ROLE_USER')">Consular ID Card<p>(Carte d’Identité Consulaire)</p></a>
+                    <a class="nav-link" href="#" th:href="@{/home?type=2}" sec:authorize="!hasRole('ROLE_USER')">Consular ID Card<p>(Carte d’Identité Consulaire)</p></a>
+                </li>
+                <li class="nav-item" sec:authorize="hasRole('ROLE_ASSIANT_OFFICER')">
+                    <a class="nav-link" href="#" th:href="@{/forms/add/2}" sec:authorize="hasRole('ROLE_USER')">Consular ID Card<p>(Carte d’Identité Consulaire)</p></a>
+                    <a class="nav-link" href="#" th:href="@{/home?type=2}" sec:authorize="!hasRole('ROLE_USER')">Consular ID Card<p>(Carte d’Identité Consulaire)</p></a>
+                </li>
+                <li class="nav-item" th:if="${type}!=3" sec:authorize="!hasRole('ROLE_ASSIANT_OFFICER')">
+                    <a class="nav-link" href="#" >Travel Document<p>(Sauf Conduit)</p></a>
+                </li>
+                <li class="nav-item" th:if="${type}!=4" sec:authorize="!hasRole('ROLE_ASSIANT_OFFICER')">
+                    <a class="nav-link" href="#" >Birth Certificate Transcript<p>(Transcription d’Acte de Naissance)</p></a>
+                </li>
+            </ul>
+        </nav>
+        <main class="col-sm-9 offset-sm-3 offset-md-3 pt-3" style="margin-left:0px;">
+            <section class="jumbotron text-center">
+                <div class="container" style="text-align;max-width:550px;padding-left: 0px;">
+                    <h1 class="jumbotron-heading" sec:authorize="hasRole('ROLE_USER')" style="font-weight: 400;font-size: 28px;">Applicant - Landing Page</h1>
+                    <h1 class="jumbotron-heading" sec:authorize="hasRole('ROLE_PRIMARY_OFFICER')" style="font-weight: 400;font-size: 28px;">Embassy Primary Officer - Landing Page</h1>
+                    <h1 class="jumbotron-heading" sec:authorize="hasRole('ROLE_SECOND_OFFICER')" style="font-weight: 400;font-size: 28px;">Embassy Second Officer - Landing Page</h1>
+                    <h1 class="jumbotron-heading" sec:authorize="hasRole('ROLE_ASSIANT_OFFICER')" style="font-weight: 400;font-size: 28px;">Embassy Assistant Officer - Landing Page</h1>
+                    <div class="nav navbar-nav navbar-right" style="float:right" th:if="${#authorization.expression('isAuthenticated()')}">
+                        <a class="btn btn-outline-primary" onclick="$('#form').submit();" href="/logout" th:href="@{#}">Sign Out</a>
+                        <form style="visibility: hidden" id="form" method="post" action="#" th:action="@{/logout}"></form>
+                    </div>
+                    <p class="lead text-muted" style="font-weight:300; font-size:2.0rem;text-align: center;">Welcome <span sec:authentication="principal.lastName"></span>&nbsp;<span sec:authentication="principal.firstName"></span>&nbsp;!</p>
+                </div>
+            </section>
+
+            <div class="album text-mute">
+                <div class="container">
+
+                    <div class="row">
+                        <div class="card" th:if="${type}!=1" sec:authorize="!hasRole('ROLE_ASSIANT_OFFICER')">
+                            <a th:href = "@{/forms/add/1}" target = "_blank" sec:authorize="hasRole('ROLE_USER')">
+                                <img th:src="@{/resources/images/Visa Sticker icon.jpg}" alt="Visa Application" />
+                            </a>
+                            <a th:href = "@{/home?type=1}" target = "_blank" sec:authorize="!hasRole('ROLE_USER')">
+                                <img th:src="@{/resources/images/Visa Sticker icon.jpg}" alt="Visa Application" />
+                            </a>
+                            <span class="card-text">Visa</span>
+                            <span class="card-text">(Demande de Visa)</span>
+                        </div>
+                        <div class="card" th:if="${type}!=2" sec:authorize="!hasRole('ROLE_ASSIANT_OFFICER')">
+                            <a th:href = "@{/forms/add/2}" target = "_blank" sec:authorize="hasRole('ROLE_USER')">
+                                <img th:src="@{/resources/images/ID Card Icon.jpg}" alt="ID Card" />
+                            </a>
+                            <a th:href = "@{/home?type=2}" target = "_blank" sec:authorize="!hasRole('ROLE_USER')">
+                                <img th:src="@{/resources/images/ID Card Icon.jpg}" alt="ID Card" />
+                            </a>
+                            <span class="card-text">Consular ID Card</span>
+                            <span class="card-text">(Carte d’Identité Consulaire)</span>
+                        </div>
+                        <div class="card" sec:authorize="hasRole('ROLE_ASSIANT_OFFICER')">
+                            <a th:href = "@{/forms/add/2}" target = "_blank" sec:authorize="hasRole('ROLE_USER')">
+                                <img th:src="@{/resources/images/ID Card Icon.jpg}" alt="ID Card" />
+                            </a>
+                            <a th:href = "@{/home?type=2}" target = "_blank" sec:authorize="!hasRole('ROLE_USER')">
+                                <img th:src="@{/resources/images/ID Card Icon.jpg}" alt="ID Card" />
+                            </a>
+                            <span class="card-text">Consular ID Card</span>
+                            <span class="card-text">(Carte d’Identité Consulaire)</span>
+                        </div>
+                        <div class="card" th:if="${type}!=3" sec:authorize="!hasRole('ROLE_ASSIANT_OFFICER')">
+                            <img th:src="@{/resources/images/Sauf Conduit icon.jpg}" alt="Travel" />
+                            <span class="card-text">Travel Document</span>
+                            <span class="card-text">(Sauf Conduit)</span>
+                        </div>
+                        <div class="card" th:if="${type}!=4" sec:authorize="!hasRole('ROLE_ASSIANT_OFFICER')">
+                            <img th:src="@{/resources/images/Birth Certificate Icon.jpg}" alt="Birth Certificate" />
+                            <span class="card-text">Birth Certificate Transcript</span>
+                            <span class="card-text">(Transcription d’Acte de Naissance)</span>
+                        </div>
+                    </div>
+                    <div class="main-data" style="margin-left:50px">
+                        <input type="hidden" th:value="${type}" id="type"/>
+                        <span style="font-weight:500; font-size:18px;float: left;">My Applications</span>
+                        <table id="formsTbl">
+                            <thead>
+                                <tr>
+                                    <th scope="col" data-field="passportno" data-sortable="true" data-align="left" data-cell-style="cellStyle" sec:authorize="!hasRole('ROLE_USER')">Passport Number</th>
+                                    <th scope="col" data-field="applydate" data-sortable="true" data-align="left" data-cell-style="cellStyle" data-formatter="dateFormat">Application Date</th>
+                                    <th scope="col" data-field="type" data-sortable="true" data-align="left" data-cell-style="cellStyle" data-formatter="typeFormat">Application Type</th>
+                                    <th scope="col" data-field="email" data-sortable="true" data-align="left" data-cell-style="cellStyle" >Visa Type</th>
+                                    <th scope="col" data-field="firstname" data-sortable="true" data-align="left" data-cell-style="cellStyle" >First Name</th>
+                                    <th scope="col" data-field="lastname" data-sortable="true" data-align="left" data-cell-style="cellStyle" >Last Name</th>
+                                    <th scope="col" data-field="email" data-sortable="true" data-align="left" data-cell-style="cellStyle" >Email</th>
+                                    <th scope="col" data-field="status" data-sortable="true" data-align="left" data-cell-style="cellStyle" data-formatter="statusFormat">Status</th>
+                                    <th sec:authorize="hasRole('ROLE_USER')" data-formatter="resumeViewFormat"></th>
+                                    <th sec:authorize="!hasRole('ROLE_USER')" data-formatter="editFormat"></th>
+                                    <th sec:authorize="!hasRole('ROLE_USER')" data-formatter="printFormat"></th>
+                                    <th sec:authorize="!hasAnyRole('ROLE_USER','ROLE_ASSIANT_OFFICER')" data-formatter="issueVisaFormat"></th>
+                                </tr>
+                            </thead>
+                        </table>
+                        <!--<table>
+                            <tbody style="font-size:12px">
+                            <tr th:each="form,epFormStat:${formList}" >
+                                <td sec:authorize="!hasRole('ROLE_USER')" th:text="${form.passportno}" style="text-align:left"></td>
+                                <td th:text="${#dates.format(form.applydate, 'MM/dd/yyyy')}" style="text-align:left"></td>
+                                <td th:switch="${form.type}" style="text-align:left">
+                                    <span th:case="1">Visa Application</span>
+                                    <span th:case="2">ID Card</span>
+                                    <span th:case="3">Travel Document</span>
+                                    <span th:case="4">Birth Certificate</span>
+                                </td>
+                                <td th:switch="${form.status}" style="text-align:left">
+                                    <span th:case="1">Pending</span>
+                                    <span th:case="2">Submitted</span>
+                                    <span th:case="3">Approved</span>
+                                    <span th:case="4">Denied</span>
+                                </td>
+                                <td style="background-color:#FFF;" sec:authorize="hasRole('ROLE_USER')">
+                                    <span th:switch="${form.status}">
+                                        <a th:case="1" class="btn btn-outline-primary" th:href="@{'/forms/edit/'+${form.id}}">RESUME</a>
+                                        <a th:case="*" class="btn btn-outline-primary" th:href="@{'/forms/view/'+${form.id}}">VIEW</a>
+                                    </span>
+                                </td>
+                                <td style="background-color:#FFF;" sec:authorize="!hasRole('ROLE_USER')">
+                                    <a class="btn btn-outline-primary" th:href="@{'/forms/edit/'+${form.id}}">EDIT</a>
+                                </td>
+                                <td style="background-color:#FFF;" sec:authorize="!hasRole('ROLE_USER')">
+                                    <a class="btn btn-outline-primary" th:href="@{'/forms/printdoc/'+${form.id}}">PRINT</a>
+                                </td>
+                                <td th:if="${form.type}==1" style="background-color:#FFF;" sec:authorize="!hasAnyRole('ROLE_USER','ROLE_ASSIANT_OFFICER')">
+                                    <a class="btn btn-outline-primary" th:href="@{'/forms/printdoc/'+${form.id}+'?printtype=sticker'}">ISSUE VISA</a>
+                                </td>
+
+                            </tr>
+                            </tbody>
+                        </table>-->
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+<footer class="footer" style="bottom:-30px;left:42px;z-index:-1;">
+    <div class="container">
+        <p class="float-right">
+            <a href="#">Back to top</a>
+        </p>
+        <p></p>
+        <img th:src="@{resources/images/new.logo.eagle.globe.gif}" style="width:33px;"/>
+        <span class="text-muted">Powered by Adage Innovations, Inc.</span>
+    </div>
+</footer>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+<script th:src="@{/resources/js/jquery.min.js}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script th:src="@{Bootstrap/4.0.0-alpha.6/holder.min.js}"></script>
+<script>
+      $(function () {
+        Holder.addTheme("thumb", { background: "#55595c", foreground: "#eceeef", text: "Thumbnail" });
+      });
+</script>
+<script th:src="@{Bootstrap/4.0.0-alpha.6/bootstrap.min.js}"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script th:src="@{Bootstrap/4.0.0-alpha.6/ie10-viewport-bug-workaround.js}"></script>
+<script th:src="@{Bootstrap/bootstarp-table/bootstrap-table.min.js}"></script>
+<script th:src="@{Bootstrap/bootstarp-table/bootstrap-table-en-US.js}"></script>
+<script type="text/javascript">
+    $('#formsTbl').bootstrapTable({
+          url: '/forms-data?type='+$('#type').val(),
+          sortName : 'applydate',
+          sortOrder : 'desc',
+          search: true,
+          pagination: true,
+          pageSize: 4,
+          sortStable:'true',
+          sortClass:'',
+          showColumns: true,
+          showRefresh: false,
+          showToggle: true,
+          locale: "en-US",
+          striped: false,
+          responseHandler:function (res) {
+            return res.rows;
+          },
+          uniqueId:'id'
+    });
+
+    function dateFormat(value,row,index) {
+
+        var date = new Date();
+        date.setTime(value);
+        var year = date.getFullYear();
+        var month = date.getMonth()+1;
+
+        var dated=date.getDate();
+
+        return month+"/"+dated+"/"+year;
+    }
+
+    function typeFormat(value,row,index){
+        var result;
+        switch(value){
+            case 1: result='Visa Application';break;
+            case 2: result='ID Card';break;
+            case 3: result='Travel Document';break;
+            case 4: result='Birth Certificate';break;
+        }
+        return result;
+    }
+
+    function statusFormat(value,row,index){
+        var result;
+        switch(value){
+            case 1: result='Pending';break;
+            case 2: result='Submitted';break;
+            case 3: result='Approved';break;
+            case 4: result='Denied';break;
+        }
+        return result;
+    }
+    function resumeViewFormat(value, row, index) {
+        var editView;
+        if(row['status']==1){
+            editView=['<a class="btn btn-outline-primary" href="/forms/edit/'+row['id']+'">RESUME','</a>'].join('');
+        }else{
+            editView=['<a class="btn btn-outline-primary" href="/forms/view/'+row['id']+'">VIEW','</a>'].join('');
+        }
+        return editView;
+    }
+
+    function editFormat(value, row, index){
+        return ['<a class="btn btn-outline-primary" href="/forms/edit/'+row['id']+'">EDIT','</a>'].join('');
+    }
+
+    function printFormat(value,row,index){
+        return ['<a class="btn btn-outline-primary" href="/forms/printdoc/'+row['id']+'">PRINT','</a>'].join('');
+    }
+
+    function issueVisaFormat(value,row,index){
+        var issueVisa;
+        if(row['type']==1){
+            issueVisa=['<a class="btn btn-outline-primary" href="/forms/printdoc/'+row['id']+'?printtype=sticker">ISSUE VISA','</a>'].join('');
+        }else{
+            issueVisa='';
+        }
+        return issueVisa;
+    }
+    function cellStyle(value, row, index, field) {
+        if(index%2==0){
+            return {
+                css:{
+                    "background-color":"#CED5E9",
+                }
+        };
+        }else{
+            return {
+                css:{
+                    "background-color":"#E8EBF4",
+                }
+        };
+        }
+
+        return null;
+
+    }
+    $(function(){
+        $(".bootstrap-table .table thead>tr>th div.th-inner:empty").parent().css("background","#fff");
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <link rel="icon" href="../../favicon.ico"/>
+
+    <title>Index Page</title>
+
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{Bootstrap/4.0.0-alpha.6/bootstrap.min.css}" rel="stylesheet" media="screen" />
+
+    <!-- Custom styles for this template -->
+    <link th:href="@{resources/css/cover.css}" rel="stylesheet" media="screen"/>
+    <link th:href="@{resources/css/general.css}" rel="stylesheet" media="screen"/>
+</head>
+
+<body>
+
+<div class="site-wrapper">
+    <div class="flag">
+        <img th:src="@{resources/images/Flag_of_Senegal.gif}"/>
+        <span>REPUBLIQUE DU SENEGAL</span>
+        <p>UN PEUPLE – UN BUT – UNE FOI</p>
+    </div>
+    <div class="site-wrapper-inner">
+
+        <div class="cover-container">
+
+            <div class="masthead clearfix">
+                <div class="inner">
+                    <h3 class="masthead-brand">Home Page</h3>
+                    <nav class="nav nav-masthead">
+                        <a class="btn btn-outline-primary" href="login" th:href="@{/login}" style="margin-right:20px;">Login</a>
+                        <a class="btn btn-outline-primary" href="signup" th:href="@{/signup}">Sign Up</a>
+                    </nav>
+                </div>
+            </div>
+
+            <div class="inner cover">
+                <p class="lead">This site allows applicants to submit their requests to their nearest embassy using online forms. Please login or create a personal profile.</p>
+                <br></br>
+                <p class="lead">Ce site est à la disposition des utilisateurs pour soumettre leurs requêtes à l’ambassade de leur zone géographique par le biais de formulaires electroniques. Veuillez vous idenfier ou créer un compte personnel.</p>
+            </div>
+
+            <div class="mastfoot">
+                <div class="inner">
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<footer class="footer">
+    <div class="container">
+        <img th:src="@{resources/images/new.logo.eagle.globe.gif}" style="width:33px;"/>
+        <span class="text-muted">Powered by Adage Innovations, Inc.</span>
+    </div>
+</footer>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script th:src="@{/Bootstrap/4.0.0-alpha.6/bootstrap.min.js}"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script th:src="@{/Bootstrap/4.0.0-alpha.6/ie10-viewport-bug-workaround.js}"></script>
+</body>
+</html>
