@@ -10,3 +10,9 @@ Deployment steps:
 4. create embassyforms/Embassyforms!123 user and create db embassyforms then execute embassyforms.sql in mysql
 5. execute "mvn clean install -X" then run "mvn spring-boot:run" command.
 6. access to http://localhost:8080 and you'll see the index page.
+7. initially there's four user existing with different roles:
+  hailongshih@qq.com/admin
+  officer1@embassy.com/adminamdin
+  officer2@embassy.com/adminamdin
+  officer3@embassy.com/adminamdin
+  
