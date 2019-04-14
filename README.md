@@ -1,6 +1,6 @@
 1.Technique:Springboot+Spring Security+JPA+Mysql+Thymeleaf+BootStrap
 
-This site is developed for online form submit/maintenance, ACL(access control list), online word generate/preview/print etc
+This site is developed for online form submit/maintenance, ACL(access control list), online word document generate/preview/print etc
 
 Deployment steps:
 
