@@ -12,7 +12,7 @@ Deployment steps:
 6. access to http://localhost:8080 and you'll see the index page.
 7. initially there's four user existing with different roles:
   hailongshih@qq.com/admin
-  officer1@embassy.com/adminamdin
-  officer2@embassy.com/adminamdin
-  officer3@embassy.com/adminamdin
+  officer1@embassy.com/adminadmin
+  officer2@embassy.com/adminadmin
+  officer3@embassy.com/adminadmin
   
